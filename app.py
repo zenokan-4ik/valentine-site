@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, jsonify
 
+click_count = []
 
 app = Flask(__name__)
 
@@ -15,10 +16,12 @@ def change_page():
 def update_click_count():
     global click_count
     data = request.get_json()
-    click_count = data['clickCount']
-    with open("result.txt", "r+") as file:
-        file.write(str(click_count))
+    click_count.append(data['clickCount'])
     return jsonify({'message': 'Click count updated successfully', 'clickCount': click_count})
+
+@app.route("/admin", methods=["POST", "GET"])
+def admin():
+    return render_template("admin.html", click_count=click_count)
 
 @app.route("/yipeee", methods=["POST", "GET"])
 def yipeee():
