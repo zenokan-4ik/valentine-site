@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>valentine.html</title>
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="central">
+            <div style="margin-left: -20px;">
+                <p id="welcome-text" style="margin-left: 20px;">Будешь моей валентинкой??</p>
+                <img src="{{ url_for('static', filename='cutegif.gif') }}" class="central">
+            </div>
+            <div class="button-container">
+                <button id="yesButton">Да!</button>
+                <button id="noButton">Нет(</button>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='script_other.js') }}"> </script>
+    </body>
+</html>
