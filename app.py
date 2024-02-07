@@ -21,7 +21,16 @@ def update_click_count():
 
 @app.route("/admin", methods=["POST", "GET"])
 def admin():
-    return render_template("admin.html", click_count=click_count)
+    list = ['/clicks', '/rofl/<>']
+    return render_template('admin.html', admin_text=f'доступные админ страницы:\n{list}')
+
+@app.route("/admin/clicks", methods=["POST", "GET"])
+def get_clicks():
+    return render_template("admin.html", admin_text=click_count)
+
+@app.route("/admin/rofl/<text>", methods=["POST", "GET"])
+def rofl():
+    return render_template("admin.html", admin_text=text)
 
 @app.route("/yipeee", methods=["POST", "GET"])
 def yipeee():
