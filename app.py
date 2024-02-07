@@ -29,7 +29,7 @@ def get_clicks():
     return render_template("admin.html", admin_text=click_count)
 
 @app.route("/admin/rofl/<text>", methods=["POST", "GET"])
-def rofl():
+def rofl(text):
     return render_template("admin.html", admin_text=text)
 
 @app.route("/yipeee", methods=["POST", "GET"])
