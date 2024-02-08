@@ -3,7 +3,17 @@
     src: url("Oswald.ttf");
 }
 
+p{
+    font-family: "Oswald";
+    font-size: 18px;
+}
+
 #welcome-text{
+    font-family: "Oswald";
+    font-size: 25px;
+}
+
+#link-text{
     font-family: "Oswald";
     font-size: 25px;
 }
@@ -21,12 +31,32 @@ button{
     transition: background-color 0.3s ease;
 }
 
-body{
+#valentine-body{
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#linktree-body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#registration-login-body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registration{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 img{
@@ -73,4 +103,10 @@ img{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+textarea{
+    margin: 10px;
+    min-width: 40px;
+    min-height: 30px;
 }

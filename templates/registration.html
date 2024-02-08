@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<body id="registration-login-body">
+    <div class="registration">
+        <textarea id="name-text" type="text" placeholder="Имя"></textarea>
+        <textarea id="login-text" type="text" placeholder="Логин"></textarea>
+        <textarea id="password-text" type="password" placeholder="Пароль"></textarea>
+        <textarea id="email-text" type="email" placeholder="Почта"></textarea>
+        <button id="confirm"> <p> Зарегестрироваться </p></button>
+        <p id="success_text" style="display: flex; justify-content: center;">  </p>
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    name_text = document.getElementById("name-text");
+    login_text = document.getElementById("login-text");
+    password_text = document.getElementById("password-text");
+    email_text = document.getElementById("email-text");
+    success_text = document.getElementById("success_text");
+    confirm_btn = document.getElementById("confirm");
+
+    function confirm_reg() {
+        $.get("/register", {
+            name: name_text.value,
+            login: login_text.value,
+            password: password_text.value,
+            email: email_text.value
+        }, function(data) {
+            console.log(data);
+            success_text.innerText = data
+        });
+    }
+
+    confirm_btn.addEventListener("click", confirm_reg)
+</script>
+
+</html>

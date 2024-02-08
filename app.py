@@ -6,21 +6,34 @@ click_count = []
 
 app = Flask(__name__)
 
-#init flask login manager
-login_manager = LoginManager()
-login_manager.init_app(app)
-#end init
-
 #init users database
 db.init_db()
 
 @app.route("/")
 def home():
+    return render_template("linktree.html")
+
+@app.route("/main", methods=["POST", "GET"])
+def valentine():
     return render_template("main.html")
 
-@app.route("/change", methods=['POST', 'GET'])
+@app.route("/valentine", methods=['POST', 'GET'])
 def change_page():
     return render_template("valentine.html")
+
+@app.route("/register-page", methods=["POST",  "GET"])
+def register_page():
+    return render_template("registration.html")
+
+@app.route("/register", methods=['POST', 'GET'])
+def register():
+    name = request.args.get('name')
+    login = request.args.get('login')
+    password = request.args.get('password')
+    email = request.args.get('email')
+    data = db.register_user(name, login, password, email)
+    return jsonify(data)
+
 
 @app.route('/update_click_count', methods=['POST'])
 def update_click_count():

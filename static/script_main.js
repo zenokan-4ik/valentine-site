@@ -9,7 +9,7 @@ function changeText() {
   if (currentIndex < textArray.length) {
     textElement.textContent = textArray[currentIndex];
   } else {
-    window.location.href = '/change';
+    window.location.href = '/valentine';
   }
 }
 

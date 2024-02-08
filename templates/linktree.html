@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+        <title>Link Tree</title>
+    </head>
+
+    <body id="linktree-body">
+        <div class="central">
+            <button id="valentine-page"> <p class="welcome-text">To Valentine Page</p> </button>
+            <button  id="registration"> <p class="welcome-text">To Registration Page</p> </button>
+        </div>
+    </body>
+
+    <script>
+        valentine = document.getElementById("valentine-page");
+        registration = document.getElementById("registration");
+
+        function toValentine(){
+            window.location.href = '/main';
+        }
+
+        function toRegistration(){
+            window.location.href = '/register-page';
+        }
+
+        valentine.addEventListener("click", toValentine)
+        registration.addEventListener("click", toRegistration)
+    </script>
+</html>
