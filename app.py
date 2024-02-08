@@ -1,8 +1,18 @@
 from flask import Flask, request, render_template, jsonify
+from flask_login import LoginManager
+import database as db
 
 click_count = []
 
 app = Flask(__name__)
+
+#init flask login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+#end init
+
+#init users database
+db.init_db()
 
 @app.route("/")
 def home():
@@ -22,7 +32,7 @@ def update_click_count():
 @app.route("/admin", methods=["POST", "GET"])
 def admin():
     list = ['/clicks', '/rofl/<>']
-    return render_template('admin.html', admin_text=f'доступные админ страницы:\n{list}')
+    return render_template('admin.html', admin_text=f'доступные админ страницы:', list=list)
 
 @app.route("/admin/clicks", methods=["POST", "GET"])
 def get_clicks():
