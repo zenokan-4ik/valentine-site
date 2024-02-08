@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<header class="header">
+    <div>
+        <h1 class="welcome-text">
+            Страница логина
+        </h1>
+    </div>
+</header>
+
+<body id="registration-login-body">
+    <div class="login">
+        <textarea id="login-text" type="text" placeholder="Логин"></textarea>
+        <textarea id="password-text" type="password" placeholder="Пароль"></textarea>
+        <button id="confirm"> <p> Войти </p></button>
+        <p id="success_text" style="display: flex; justify-content: center;">  </p>
+    </div>
+</body>
+
+<footer class="footer">
+    <p>
+        &copy;admin
+    </p>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    login_text = document.getElementById("login-text");
+    password_text = document.getElementById("password-text");
+    success_text = document.getElementById("success_text");
+    confirm_btn = document.getElementById("confirm");
+
+    function confirm_reg() {
+        $.get("/login", {
+            login: login_text.value,
+            password: password_text.value
+        }, function(data) {
+            console.log(data);
+            success_text.innerText = data
+        });
+    }
+
+    confirm_btn.addEventListener("click", confirm_reg)
+</script>
+
+</html>

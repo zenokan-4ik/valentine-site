@@ -51,14 +51,29 @@ def get_all_data() -> list: #list of tuples
     query = sql.select(user_data)
     return connection.execute(query).fetchall()
 
+def login_user(login=None, password=None) -> tuple:
+    temp = isRegistered(login, password)
+    if temp:
+        return (True, 'Успешно!')
+    return (False, f"Логин/пароль неверны! {get_all_data()}")
+
+def isRegistered(login, password):
+    data = get_all_data()
+    #check login
+    for i in data:
+        if login==i[2] and password==i[4]:
+            return True
+            break
+    return False
+
 def isValid(name, login, password, email) -> tuple:
     data = get_all_data()
     #check login
     for i in data:
-        if login == i[1]: #i[1] == login
+        if login == i[2]: #i[1] == login
             return (False, f'Пользователь с логином {login} уже существует')
             break
-        if email == i[3]:
+        if email == i[4]:
             return (False, f'Пользователь с почтой {email} уже существует')
             break
     #check password

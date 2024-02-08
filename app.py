@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect, make_response
 from flask_login import LoginManager
 import database as db
 
@@ -32,8 +32,33 @@ def register():
     password = request.args.get('password')
     email = request.args.get('email')
     data = db.register_user(name, login, password, email)
+    if data[0]:
+        resp = make_response(jsonify(data))
+        resp.set_cookie('user', login)
+        print(request.cookies.get('user'))
+        return resp
     return jsonify(data)
 
+@app.route("/login-page", methods=['POST', 'GET'])
+def login_page():
+    return render_template("login.html")
+
+@app.route("/login", methods=['POST', 'GET'])
+def login():
+    login = request.args.get("login")
+    password = request.args.get("password")
+    db_response = db.login_user(login, password)
+    if db_response[0]:
+        resp = make_response(jsonify(db_response[1]))
+        resp.set_cookie('user', login)
+        return resp
+    return jsonify(db_response[1])
+
+@app.route("/logout", methods=['POST', 'GET'])
+def logout():
+    resp = make_response('Вы вышли из своего аккаунта!')
+    resp.set_cookie('user', '')
+    return resp
 
 @app.route('/update_click_count', methods=['POST'])
 def update_click_count():
@@ -58,6 +83,10 @@ def rofl(text):
 @app.route("/yipeee", methods=["POST", "GET"])
 def yipeee():
     return render_template("yipee.html")
+
+@app.route("/see_cookies")
+def see_cookie():
+    return str(request.cookies.get('user'))
 
 if __name__ == "__main__":
     app.run(debug=True)

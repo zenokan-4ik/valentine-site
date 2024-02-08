@@ -1,4 +1,15 @@
-<p> {{ admin_text }} </p>
-{% for v in list %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="registration-login-body">
+    <p style="font-family: Comic Sans MS;"> {{ admin_text }} </p>
+    {% for v in list %}
     <p> {{ v }} </p>
-{% endfor %}
+    {% endfor %}
+</body>
+</html>

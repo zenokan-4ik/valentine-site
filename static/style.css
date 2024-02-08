@@ -1,3 +1,27 @@
+:root{
+    --text-color: #e9e7e9;
+    --background-color: #05a58d;
+    --second-text-color: #909095;
+    --gradient-color1: #05a58d;
+    --gradient-color2: #4f3558;
+    --gradient-color3: #328284;
+}
+
+@keyframes button-gradient{
+    0%{
+        background-color: var(--gradient-color1)
+    }
+    33%{
+        background-color: var(--gradient-color2);
+    }
+    66%{
+        background-color: var(--gradient-color3);
+    }
+    100%{
+        background-color: var(--gradient-color1)
+    }
+}
+
 @font-face {
     font-family: "Oswald";
     src: url("Oswald.ttf");
@@ -6,16 +30,26 @@
 p{
     font-family: "Oswald";
     font-size: 18px;
+    color: var(--text-color);
+    padding: 5px 10px;
+    background-color: var(--background-color);
+}
+
+h1{
+    font-family: "Oswald";
+    color: var(--text-color);
 }
 
 #welcome-text{
     font-family: "Oswald";
     font-size: 25px;
+    color: var(--text-color)
 }
 
 #link-text{
     font-family: "Oswald";
     font-size: 25px;
+    color: var(--text-color)
 }
 
 button{
@@ -24,11 +58,18 @@ button{
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: var(--background-color);
     color: white;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+}
+
+button:hover{
+    transition: background-color 3s linear;
+}
+
+#confirm{
+    animation: button-gradient 2s infinite;
 }
 
 #valentine-body{
@@ -57,6 +98,34 @@ button{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header{
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    height: 80px;
+    width: 100%;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    height: 50px;
+    width: 100%;
 }
 
 img{
