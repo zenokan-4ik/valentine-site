@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, jsonify, redirect, make_response
-from flask_login import LoginManager
 import database as db
 
 click_count = []
@@ -87,6 +86,41 @@ def yipeee():
 @app.route("/see_cookies")
 def see_cookie():
     return str(request.cookies.get('user'))
+
+@app.route("/get_name", methods=['GET', 'POST']) 
+def get_name():
+    name = db.name_by_login(str(request.cookies.get('user')))
+    return str(name)
+
+@app.route("/get_email", methods=['GET', 'POST']) 
+def get_email():
+    email = db.email_by_login(str(request.cookies.get('user')))
+    return str(email)
+
+@app.route("/delete_db", methods=['GET', 'POST'])
+def delete_db():
+    secret_code = request.args.get("code")
+    if secret_code == 'qweRTY':
+        db.clear_db()
+        return f'Очищено! Все данные: {db.get_all_data()}'
+    else:
+        return f'Код неверный {secret_code}'
+
+@app.route('/profile', methods=['POST', 'GET'])
+def profile():
+    return render_template("profile.html")
+
+@app.route('/profile/edit', methods=['GET', "POST"])
+def edit_profile():
+    new_login = request.args.get('login')
+    new_name = request.args.get('name')
+    new_password = request.args.get('password')
+    new_email = request.args.get('email')
+
+    db.update_user(str(request.cookies.get('user')), new_name=new_name, new_login=new_login, new_password=new_password, new_email=new_email)
+    response = make_response('Успешно!')
+    response.set_cookie('user', new_login)
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile page</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<header class="header" style="display: flex;justify-content: space-between;align-items: center;">
+    <p id="to-linktree" class="button-text text-button" style="order: 0;">На Linktree</button>
+    <div style="display: flex; justify-content: flex-end; align-items: center;">
+        <div id="profile-menu" style="display: none; flex-direction: row;">
+            <p id="log-out" class="button-text text-button" style="background-color: #328284; scale: 0.7;">Выйти</p>
+            <p id="to-profile-btn" class="button-text text-button" style="background-color: #328284; scale: 0.7;">Профиль</p>
+        </div>
+        <p id="profile-name" class="button-text text-button">none</p> 
+    </div>
+</header>
+
+<body>
+    <div class="profile-data" style="width: 300px; margin: 75px 25px 25px 25px;">
+        <h1 class="text">Профиль пользователя</h1>
+        <p class="text" id="name-text">Имя: </p>
+        <p class="text" id="email-text">Email: example@example.com</p>
+        <button id="edit-profile" class="button-text button">Редактировать профиль</button>
+        <div id="new-data" style="display: none; flex-direction: column;border: #328284 2px solid; border-top: none; height: 324px;">
+            <textarea id="new-name" type="text" placeholder="Новое имя"></textarea>
+            <textarea id="new-login" type="text" placeholder="Новый логин"></textarea>
+            <textarea id="new-email" type="text" placeholder="Новая почта"></textarea>
+            <textarea id="new-password" type="text" placeholder="Новый пароль"></textarea>
+            <button id="new-data-confirm" class="button-text button">Изменить!</button>
+            <p class="text">...</p>
+        </div>
+    </div>
+</body>
+
+<footer class="footer">
+    <p>&copy;admin</p>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='default.js') }}"></script>
+<script>
+    toLinktree_btn = document.getElementById("to-linktree");
+    profile_name = document.getElementById("profile-name");
+    logout_text = document.getElementById("log-out");
+    name_text = document.getElementById("name-text");
+    email_text = document.getElementById("email-text");
+    edit_profile = document.getElementById('edit-profile');
+    profile_menu = document.getElementById('profile-menu');
+    
+    new_name = document.getElementById("new-name");
+    new_login = document.getElementById("new-login");
+    new_email = document.getElementById("new-email");
+    new_password = document.getElementById("new-password");
+    new_data = document.getElementById("new-data");
+    new_data_confirm = document.getElementById('new-data-confirm');
+
+    let isExit = false;
+    let isEdit = false;
+
+    get_profile();
+
+    function get_profile() {
+        $.post('/get_name', function(data){profile_name.innerText = data; name_text.innerText = 'Имя: '+data});
+        $.post('/get_email', function(response){email_text.innerText = 'Почта: ' + response});
+    }
+
+    new_data_confirm.addEventListener("click", edit_profile);
+    edit_profile.addEventListener("click", show_editing);
+    logout_text.addEventListener("click", logout);
+    profile_name.addEventListener("click", display_elem);
+    toLinktree_btn.addEventListener("click", to_linktree);
+</script>
+
+</html>

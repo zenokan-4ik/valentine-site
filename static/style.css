@@ -11,14 +11,17 @@
     0%{
         background-color: var(--gradient-color1)
     }
-    33%{
-        background-color: var(--gradient-color2);
+    25%{
+        background-color: var(--gradient-color1)
     }
-    66%{
+    50%{
         background-color: var(--gradient-color3);
     }
+    75%{
+        background-color: var(--gradient-color1);
+    }
     100%{
-        background-color: var(--gradient-color1)
+        background-color: var(--gradient-color1);
     }
 }
 
@@ -27,12 +30,51 @@
     src: url("Oswald.ttf");
 }
 
-p{
+.layout{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 98.2%;
+    width: 100%;
+}
+
+html{
+    background-color: var(--text-color);
+    height: 99%;
+    margin: 0;
+}
+
+body{
+    height: 99%;
+    margin: 0;
+}
+
+.text{
     font-family: "Oswald";
     font-size: 18px;
     color: var(--text-color);
     padding: 5px 10px;
     background-color: var(--background-color);
+    text-align: center;
+}
+
+.second-text{
+    font-family: "Oswald";
+    font-size: 15px;
+    color: var(--text-color);
+    padding: 5px 10px;
+    background-color: var(--background-color);
+}
+
+.button-text{
+    font-family: "Oswald";
+    font-size: 18px;
+    color: var(--text-color);
+    padding: 5px 10px;
 }
 
 h1{
@@ -52,24 +94,34 @@ h1{
     color: var(--text-color)
 }
 
-button{
+.button{
     font-family: "Oswald";
     width: 300px;
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
-    background-color: var(--background-color);
+    background-color: var(--gradient-color3);
     color: white;
     border: none;
     border-radius: 5px;
 }
 
-button:hover{
+.button:hover{
     transition: background-color 3s linear;
 }
 
+.text-button{
+    font-family: "Oswald";
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
 #confirm{
-    animation: button-gradient 2s infinite;
+    animation: button-gradient 2s infinite ease;
 }
 
 #valentine-body{
@@ -88,7 +140,7 @@ button:hover{
 }
 
 #registration-login-body{
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -110,16 +162,16 @@ button:hover{
     position: absolute;
     top: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
     background-color: var(--background-color);
-    height: 80px;
+    height: 50px;
     width: 100%;
 }
 
 .footer{
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -178,4 +230,27 @@ textarea{
     margin: 10px;
     min-width: 40px;
     min-height: 30px;
+    resize: none;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.profile-dropdown:hover .dropdown-content {
+    display: block;
 }

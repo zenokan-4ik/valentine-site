@@ -55,13 +55,13 @@ def login_user(login=None, password=None) -> tuple:
     temp = isRegistered(login, password)
     if temp:
         return (True, 'Успешно!')
-    return (False, f"Логин/пароль неверны! {get_all_data()}")
+    return (False, f"Логин/пароль неверны!")
 
 def isRegistered(login, password):
     data = get_all_data()
     #check login
     for i in data:
-        if login==i[2] and password==i[4]:
+        if login.lower()==i[2].lower() and password==i[4]:
             return True
             break
     return False
@@ -70,10 +70,10 @@ def isValid(name, login, password, email) -> tuple:
     data = get_all_data()
     #check login
     for i in data:
-        if login == i[2]: #i[1] == login
+        if login.lower() == i[2].lower():
             return (False, f'Пользователь с логином {login} уже существует')
             break
-        if email == i[4]:
+        if email.lower() == i[3].lower():
             return (False, f'Пользователь с почтой {email} уже существует')
             break
     #check password
@@ -83,3 +83,55 @@ def isValid(name, login, password, email) -> tuple:
     if('@' not in email) or ('.com' not in email) and ('.ru' not in email):
         return (False, 'Проверьте правильность написания вашей почты')
     return (True, 'Успешно!')
+
+def name_by_login(login):
+    data = get_all_data()
+    for user in data:
+        if user[2].lower() == login.lower():
+            name = user[2]
+            return name
+        
+def email_by_login(login):
+    data = get_all_data()
+    for user in data:
+        if user[2].lower() == login.lower():
+            email = user[3]
+            return email
+        
+def clear_db():
+    if user_data is not None:
+        delete_stmt = user_data.delete()
+        connection.execute(delete_stmt)
+        print("All records cleared from the table.")
+
+def update_user(login, new_name=None, new_login=None, new_password=None, new_email=None):
+    user_table = user_data
+
+    query = sql.select([user_table]).where(user_table.c.user_login == login)
+
+    result = connection.execute(query).fetchone()
+
+    if result:
+        user_id = result['user_id']
+        update_data = {}
+        if new_name is not None:
+            update_data['user_name'] = new_name
+        if new_login is not None:
+            update_data['user_login'] = new_login
+        if new_password is not None:
+            update_data['user_password'] = new_password
+        if new_email is not None:
+            update_data['user_email'] = new_email
+        update_query = user_table.update().where(user_table.c.user_id == user_id).values(**update_data)
+        connection.execute(update_query)
+
+        return True, "Данные пользователя успешно обновлены."
+    else:
+        return False, f"Пользователь с логином {login} не найден."
+
+
+#0 - id
+#1 - name
+#2 - login
+#3 - email
+#4 - password

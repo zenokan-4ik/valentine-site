@@ -7,11 +7,14 @@
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 </head>
 
-<header class="header">
-    <div>
-        <h1 class="welcome-text">
-            Страница логина
-        </h1>
+<header class="header" style="display: flex;justify-content: space-between;align-items: center;">
+    <p id="to-linktree" class="button-text text-button" style="order: 0;">На Linktree</button>
+    <div style="display: flex; justify-content: flex-end; align-items: center;">
+        <div id="profile-menu" style="display: none; flex-direction: row;">
+            <p id="log-out" class="button-text text-button" style="background-color: #328284; scale: 0.7;">Выйти</p>
+            <p id="to-profile-btn" class="button-text text-button" style="background-color: #328284; scale: 0.7;">Профиль</p>
+        </div>
+        <p id="profile-name" class="button-text text-button">none</p>
     </div>
 </header>
 
@@ -19,35 +22,47 @@
     <div class="login">
         <textarea id="login-text" type="text" placeholder="Логин"></textarea>
         <textarea id="password-text" type="password" placeholder="Пароль"></textarea>
-        <button id="confirm"> <p> Войти </p></button>
-        <p id="success_text" style="display: flex; justify-content: center;">  </p>
+        <button id="confirm" class="button-text button"> Войти </button>
+        <p id="switch-btn" class="text" style="cursor: pointer; text-align: center;margin: 0;">или зарегестрироваться</p>
+        <p id="success_text" style="display: flex; justify-content: center;" class="text">...</p>
     </div>
 </body>
 
 <footer class="footer">
-    <p>
+    <p class="text">
         &copy;admin
     </p>
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='default.js') }}"></script>
 <script>
+    name_text = document.getElementById("name-text");
     login_text = document.getElementById("login-text");
     password_text = document.getElementById("password-text");
+    email_text = document.getElementById("email-text");
     success_text = document.getElementById("success_text");
     confirm_btn = document.getElementById("confirm");
+    toLinktree_btn = document.getElementById("to-linktree");
+    profile_name = document.getElementById("profile-name");
+    switch_btn = document.getElementById("switch-btn");
+    logout_text = document.getElementById("log-out");
+    to_profile_btn = document.getElementById('to-profile-btn');
+    profile_menu = document.getElementById('profile-menu');
+    let isExit = false;
 
-    function confirm_reg() {
-        $.get("/login", {
-            login: login_text.value,
-            password: password_text.value
-        }, function(data) {
-            console.log(data);
-            success_text.innerText = data
-        });
+    get_profile();
+
+    function to_regpage() {
+        window.location.href = '/register-page';
     }
 
-    confirm_btn.addEventListener("click", confirm_reg)
+    to_profile_btn.addEventListener('click', to_profile);
+    switch_btn.addEventListener("click", to_regpage);
+    confirm_btn.addEventListener("click", confirm_login);
+    toLinktree_btn.addEventListener("click", to_linktree);
+    profile_name.addEventListener("click", display_elem);
+    logout_text.addEventListener("click", logout);
 </script>
 
 </html>

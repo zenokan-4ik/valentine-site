@@ -11,5 +11,29 @@
     {% for v in list %}
     <p> {{ v }} </p>
     {% endfor %}
+
+    <div>
+        <textarea id="secret-code" placeholder="Введите код для удаления дб"></textarea>
+        <button id="delete-btn">Удалить</button>
+        <p id="delete-text"></p>
+    </div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    secret_code = document.getElementById('secret-code');
+    delete_btn = document.getElementById("delete-btn");
+    delete_text = document.getElementById('delete-text');
+
+    function delete_db() {
+        $.get('/delete_db',{
+            code: secret_code.value
+        }, function(response){
+            delete_text.innerText = response
+        });
+    }
+
+    delete_btn.addEventListener("click", delete_db)
+</script>
+
 </html>
